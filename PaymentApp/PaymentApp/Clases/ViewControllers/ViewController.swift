@@ -12,12 +12,20 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        
+        APIClient.sharedInstance.getPaymentMethods(completionHandler: { [weak self] (projects, error)  in
+            if self == nil {
+                return
+            }
+            
+        }) { (error:String?) in
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 
