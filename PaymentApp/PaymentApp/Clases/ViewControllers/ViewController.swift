@@ -10,24 +10,36 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var paymentMethods = [PayMethod]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        APIClient.sharedInstance.getPaymentMethods(completionHandler: { [weak self] (projects, error)  in
-            if self == nil {
-                return
-            }
-            
-        }) { (error:String?) in
-            
-        }
+        getPaymentMethods()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-
+    func getPaymentMethods () {
+        APIClient.sharedInstance.getPaymentMethods(completionHandler: { [weak self] (payMethods, error)  in
+            if self == nil {
+                return
+            }
+            for item in payMethods ?? [] {
+                do {
+                    let payment = try PayMethod(dict:item)
+                    self?.paymentMethods.append(payment)
+                    
+                } catch let error {
+                    print("error parsing object: \(error)")
+                }
+            }
+            
+        }) { (error:String?) in
+            
+        }
+    }
 }
 
