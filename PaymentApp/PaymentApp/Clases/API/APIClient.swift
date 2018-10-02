@@ -19,67 +19,52 @@ class APIClient: NSObject {
     private let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     private let baseURL = "https://api.mercadopago.com/v1/payment_methods"
     private let token = "444a9ef5-8a6b-429f-abdf-587639155d88"
+    private let payment = Payment.sharedInstance
     
     // MARK: GET PAYMENT METHODS (CREDIT CARDS, DEBIT CARDS, ETC)
     
     func getPaymentMethods( completionHandler:@escaping ArrayDictionaryErrorResponse, errorHandler:@escaping StringResponse) {
         
-        Alamofire.request(baseURL + "?public_key=\(token)", method: .get)
-            .responseJSON {  [weak self ] response in
-                if let dataOK = response.data {
-                    do {
-                        guard let dictionary = try JSONSerialization.jsonObject(with: dataOK, options: .mutableContainers) as? [[String: AnyObject]] else {
-                            errorHandler("An error occurrred parsing the response.")
-                            return
-                        }
-                        completionHandler(dictionary, response.result.error)
-                        
-                    } catch {
-                        errorHandler("An error occurrred parsing the response.")
-                    }
-                }
-                else{
-                    errorHandler(self?.getMessageError(response: response.response, data: nil))
-                }
-        }
+        let request = baseURL + "?public_key=\(token)"
+            
+        doRequest(request: request, completionHandler: completionHandler, errorHandler: errorHandler)
     }
     
     // MARK: GET CARD ISSUERS (BANKS)
     
-    func getCardIssuers(payMethodId: String, completionHandler:@escaping ArrayDictionaryErrorResponse, errorHandler:@escaping StringResponse) {
+    func getCardIssuers(completionHandler:@escaping ArrayDictionaryErrorResponse, errorHandler:@escaping StringResponse) {
+        
+        var payMethodId = "0"
+        if let paymentMethod = payment.paymentMethod {
+            payMethodId = paymentMethod.id ?? ""
+        }
         
         let request = baseURL + "/card_issuers?public_key=\(token)&payment_method_id=\(payMethodId)"
         
-        Alamofire.request(request, method: .get)
-            .responseJSON {  [weak self ] response in
-                if let dataOK = response.data {
-                    do {
-                        guard let dictionary = try JSONSerialization.jsonObject(with: dataOK, options: .mutableContainers) as? [[String: AnyObject]] else {
-                            errorHandler("An error occurrred parsing the response.")
-                            return
-                        }
-                        completionHandler(dictionary, response.result.error)
-                        
-                    } catch {
-                        errorHandler("An error occurrred parsing the response.")
-                    }
-                }
-                else{
-                    errorHandler(self?.getMessageError(response: response.response, data: nil))
-                }
-        }
+        doRequest(request: request, completionHandler: completionHandler, errorHandler: errorHandler)
     }
     
     // MARK: GET INSTALLMENTS
     
     func getInstallments(completionHandler:@escaping ArrayDictionaryErrorResponse, errorHandler:@escaping StringResponse) {
         
-        // TODO: SACAR ESTOS VALORES DEL MODELO Q VOY A GUARDAR EN REALM
-        let amount = 10
-        let payMethodId = "visa"
-        let bankId = "288"
+        let amount = payment.amount ?? "0"
+        var payMethodId = "0"
+        var bankId = "0"
+        
+        if let paymentMethod = payment.paymentMethod {
+            payMethodId = paymentMethod.id ?? ""
+        }
+        if let bank = payment.bank {
+            bankId = bank.id ?? ""
+        }
         
         let request = baseURL + "/installments?public_key=\(token)&amount=\(amount)&payment_method_id=\(payMethodId)&issuer.id=\(bankId)"
+        
+        doRequest(request: request, completionHandler: completionHandler, errorHandler: errorHandler)
+    }
+    
+    func doRequest (request: String, completionHandler:@escaping ArrayDictionaryErrorResponse, errorHandler:@escaping StringResponse) {
         
         Alamofire.request(request, method: .get)
             .responseJSON {  [weak self ] response in

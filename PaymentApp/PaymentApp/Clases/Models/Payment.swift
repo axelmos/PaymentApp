@@ -10,7 +10,7 @@ import Foundation
 
 struct Payment {
     
-    static let sharedInstance = Payment()
+    static var sharedInstance = Payment()
     var amount: String?
     var paymentMethod: PayMethod?
     var bank: Bank?
