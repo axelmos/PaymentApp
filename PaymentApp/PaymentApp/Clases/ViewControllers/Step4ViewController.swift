@@ -24,7 +24,16 @@ class Step4ViewController: UIViewController {
         self.title = "Cuotas"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Next", style: .plain, target: self, action: #selector(Step1ViewController.nextStep))
         
+        mainView.tableView.dataSource = self
+        mainView.tableView.delegate = self
+        
         getInstallments()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Payment.sharedInstance.step = .installment
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,3 +65,28 @@ class Step4ViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+// ----------------------------------------------------
+
+extension Step4ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return installments.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell") as! UITableViewCell
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}

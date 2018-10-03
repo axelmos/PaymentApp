@@ -10,7 +10,6 @@ import UIKit
 
 class Step1ViewController: UIViewController {
 
-    var paymentMethods = [PayMethod]()
     var mainView: Step1View! { return self.view as! Step1View }
     
     override func loadView() {
@@ -23,8 +22,13 @@ class Step1ViewController: UIViewController {
         
         self.title = "Monto"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Next", style: .plain, target: self, action: #selector(Step1ViewController.nextStep))
+        self.hideKeyboardWhenTappedScreen()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        getPaymentMethods()
+        Payment.sharedInstance.step = .amount
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,28 +36,13 @@ class Step1ViewController: UIViewController {
     }
 
     @objc func nextStep () {
-        let vc = Step2ViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func getPaymentMethods () {
-        APIClient.sharedInstance.getPaymentMethods(completionHandler: { [weak self] (payMethods, error)  in
-            if self == nil {
-                return
-            }
-            for item in payMethods ?? [] {
-                do {
-                    let payment = try PayMethod(dict:item)
-                    self?.paymentMethods.append(payment)
-                    
-                } catch let error {
-                    print("error parsing object: \(error)")
-                }
-            }
-            
-        }) { (error:String?) in
-            
+        
+        if mainView.amountField.text == "" {
+            Utils.showAlert(message: "Ingrese un monto a pagar", context: self)
+        } else {
+            Payment.sharedInstance.amount = mainView.amountField.text
+            let vc = Step2ViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
-

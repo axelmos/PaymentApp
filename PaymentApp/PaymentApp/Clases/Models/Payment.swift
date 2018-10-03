@@ -15,4 +15,5 @@ struct Payment {
     var paymentMethod: PayMethod?
     var bank: Bank?
     var installments: Installment?
+    var step: Step?
 }

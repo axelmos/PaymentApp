@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class Step2ViewController: UIViewController {
 
@@ -24,7 +25,16 @@ class Step2ViewController: UIViewController {
         self.title = "Medio de pago"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Next", style: .plain, target: self, action: #selector(Step1ViewController.nextStep))
         
+        mainView.tableView.dataSource = self
+        mainView.tableView.delegate = self
+        
         getPaymentMethods()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Payment.sharedInstance.step = .payMethod
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,6 +60,9 @@ class Step2ViewController: UIViewController {
                     print("error parsing object: \(error)")
                 }
             }
+            DispatchQueue.main.async {
+                self?.mainView.tableView.reloadData()
+            }
             
         }) { (error:String?) in
             
@@ -57,3 +70,37 @@ class Step2ViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+// ----------------------------------------------------
+
+extension Step2ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return paymentMethods.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
+        cell.configureCell()
+        cell.lblName.text = paymentMethods[indexPath.row].name
+        
+        /*if let url = URL.init(string: paymentMethods[indexPath.row].thumbnail ?? "") {
+            cell.imgView.sd_setImage(with: url)
+        }*/
+        
+        let imageURL = UIImage.gifImageWithURL(gifUrl: paymentMethods[indexPath.row].thumbnail ?? "")
+        cell.imgView.image = imageURL
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}

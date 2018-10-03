@@ -10,6 +10,9 @@ import UIKit
 
 class Step2View: UIView {
     
+    var infoLabel: UILabel!
+    var tableView: UITableView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -23,5 +26,27 @@ class Step2View: UIView {
         
         self.backgroundColor = UIColor.white
         
+        infoLabel = UILabel()
+        infoLabel.font = UIFont.systemFont(ofSize: 16)
+        infoLabel.text = "Seleccione un medio de pago de la lista"
+        infoLabel.textAlignment = .center
+        self.addSubview(infoLabel)
+        infoLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(100)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().offset(-30)
+            make.height.greaterThanOrEqualTo(40)
+        }
+        
+        tableView = UITableView()
+        tableView.separatorInset = UIEdgeInsets.zero
+        tableView.register(CustomCell.self, forCellReuseIdentifier: "customCell")
+        self.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(infoLabel).offset(70)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
 }

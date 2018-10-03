@@ -21,6 +21,11 @@
 		2486AC3621653625009BDBDA /* Step3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3321653625009BDBDA /* Step3ViewController.swift */; };
 		2486AC3721653625009BDBDA /* Step2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3421653625009BDBDA /* Step2ViewController.swift */; };
 		2486AC3821653625009BDBDA /* Step4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3521653625009BDBDA /* Step4ViewController.swift */; };
+		2486AC3C216551F6009BDBDA /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3B216551F6009BDBDA /* UIViewController.swift */; };
+		2486AC3E216554DB009BDBDA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3D216554DB009BDBDA /* Utils.swift */; };
+		2486AC40216560CA009BDBDA /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3F216560CA009BDBDA /* Enums.swift */; };
+		2486AC4421656820009BDBDA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC4321656820009BDBDA /* CustomCell.swift */; };
+		2486AC4621656E54009BDBDA /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC4521656E54009BDBDA /* UIImage+GIF.swift */; };
 		2FC6AAB62162E092003CE870 /* PayMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6AAB52162E092003CE870 /* PayMethod.swift */; };
 		2FC6AAB82162FE55003CE870 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6AAB72162FE55003CE870 /* Bank.swift */; };
 		2FC6AABA2162FEED003CE870 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6AAB92162FEED003CE870 /* Payment.swift */; };
@@ -43,6 +48,11 @@
 		2486AC3321653625009BDBDA /* Step3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Step3ViewController.swift; sourceTree = "<group>"; };
 		2486AC3421653625009BDBDA /* Step2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Step2ViewController.swift; sourceTree = "<group>"; };
 		2486AC3521653625009BDBDA /* Step4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Step4ViewController.swift; sourceTree = "<group>"; };
+		2486AC3B216551F6009BDBDA /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		2486AC3D216554DB009BDBDA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		2486AC3F216560CA009BDBDA /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		2486AC4321656820009BDBDA /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		2486AC4521656E54009BDBDA /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
 		2FC6AAB52162E092003CE870 /* PayMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMethod.swift; sourceTree = "<group>"; };
 		2FC6AAB72162FE55003CE870 /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
 		2FC6AAB92162FEED003CE870 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
@@ -110,6 +120,7 @@
 				2486AC242162BAF2009BDBDA /* ViewControllers */,
 				2486AC252162BAFB009BDBDA /* API */,
 				2F1FA69C2162D766008A41D0 /* Models */,
+				2486AC39216551CE009BDBDA /* Common */,
 			);
 			path = Clases;
 			sourceTree = "<group>";
@@ -140,8 +151,28 @@
 				2486AC2F216533CF009BDBDA /* Step2View.swift */,
 				2486AC2D216533CF009BDBDA /* Step3View.swift */,
 				2486AC2E216533CF009BDBDA /* Step4View.swift */,
+				2486AC4321656820009BDBDA /* CustomCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2486AC39216551CE009BDBDA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2486AC3A216551D7009BDBDA /* Extensions */,
+				2486AC3D216554DB009BDBDA /* Utils.swift */,
+				2486AC3F216560CA009BDBDA /* Enums.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2486AC3A216551D7009BDBDA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2486AC3B216551F6009BDBDA /* UIViewController.swift */,
+				2486AC4521656E54009BDBDA /* UIImage+GIF.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2F1FA69C2162D766008A41D0 /* Models */ = {
@@ -290,9 +321,13 @@
 				2486AC142162B221009BDBDA /* Step1ViewController.swift in Sources */,
 				2FC6AABC2162FF30003CE870 /* Installment.swift in Sources */,
 				2486AC3621653625009BDBDA /* Step3ViewController.swift in Sources */,
+				2486AC4421656820009BDBDA /* CustomCell.swift in Sources */,
 				2486AC2C21652FF1009BDBDA /* Step1View.swift in Sources */,
+				2486AC40216560CA009BDBDA /* Enums.swift in Sources */,
 				2486AC30216533D0009BDBDA /* Step3View.swift in Sources */,
+				2486AC4621656E54009BDBDA /* UIImage+GIF.swift in Sources */,
 				2486AC32216533D0009BDBDA /* Step2View.swift in Sources */,
+				2486AC3E216554DB009BDBDA /* Utils.swift in Sources */,
 				2486AC122162B221009BDBDA /* AppDelegate.swift in Sources */,
 				2FC6AAB82162FE55003CE870 /* Bank.swift in Sources */,
 				2486AC3821653625009BDBDA /* Step4ViewController.swift in Sources */,
@@ -300,6 +335,7 @@
 				2FC6AABA2162FEED003CE870 /* Payment.swift in Sources */,
 				2486AC292162BB92009BDBDA /* APIClient.swift in Sources */,
 				2486AC31216533D0009BDBDA /* Step4View.swift in Sources */,
+				2486AC3C216551F6009BDBDA /* UIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +481,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PaymentApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -463,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PaymentApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
