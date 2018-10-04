@@ -54,7 +54,8 @@ class Step3ViewController: UIViewController {
             if self == nil {
                 return
             }
-            for item in banks ?? [] {
+            let _banks = banks ?? []
+            for item in _banks {
                 do {
                     let bank = try Bank(dict:item)
                     self?.banks.append(bank)
@@ -65,7 +66,11 @@ class Step3ViewController: UIViewController {
             }
             DispatchQueue.main.async {
                 SVProgressHUD.dismiss()
-                self?.mainView.tableView.reloadData()
+                if _banks.count == 0 {
+                    Utils.showAlert(message: "No se encontraron entidades bancarias asociadas al medio de pago \(Payment.sharedInstance.paymentMethod?.name ?? "")", context: self!)
+                } else {
+                    self?.mainView.tableView.reloadData()
+                }
             }
             
         }) { (error:String?) in
