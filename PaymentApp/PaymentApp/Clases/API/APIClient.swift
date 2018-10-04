@@ -19,7 +19,6 @@ class APIClient: NSObject {
     private let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     private let baseURL = "https://api.mercadopago.com/v1/payment_methods"
     private let token = "444a9ef5-8a6b-429f-abdf-587639155d88"
-    private let payment = Payment.sharedInstance
     
     // MARK: GET PAYMENT METHODS (CREDIT CARDS, DEBIT CARDS, ETC)
     
@@ -35,7 +34,7 @@ class APIClient: NSObject {
     func getCardIssuers(completionHandler:@escaping ArrayDictionaryErrorResponse, errorHandler:@escaping StringResponse) {
         
         var payMethodId = "0"
-        if let paymentMethod = payment.paymentMethod {
+        if let paymentMethod = Payment.sharedInstance.paymentMethod {
             payMethodId = paymentMethod.id ?? ""
         }
         
@@ -48,14 +47,14 @@ class APIClient: NSObject {
     
     func getInstallments(completionHandler:@escaping ArrayDictionaryErrorResponse, errorHandler:@escaping StringResponse) {
         
-        let amount = payment.amount ?? "0"
+        let amount = Payment.sharedInstance.amount ?? "0"
         var payMethodId = "0"
         var bankId = "0"
         
-        if let paymentMethod = payment.paymentMethod {
+        if let paymentMethod = Payment.sharedInstance.paymentMethod {
             payMethodId = paymentMethod.id ?? ""
         }
-        if let bank = payment.bank {
+        if let bank = Payment.sharedInstance.bank {
             bankId = bank.id ?? ""
         }
         

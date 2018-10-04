@@ -8,28 +8,40 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class CustomCell: UITableViewCell {
     
     var lblName = UILabel()
     var imgView = UIImageView()
     
-    func configureCell() {
-        self.addSubview(imgView)
+    func configureCell(name: String, thumbnail: String = "") {
+        
         self.addSubview(lblName)
         
-        imgView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(0)
-            make.left.equalToSuperview().offset(0)
-            make.width.equalTo(60)
-            make.height.equalTo(60)
+        if thumbnail != "" {
+            self.addSubview(imgView)
+            imgView.contentMode = .scaleAspectFit
+            imgView.snp.makeConstraints { (make) in
+                make.top.equalToSuperview().offset(0)
+                make.left.equalToSuperview().offset(20)
+                make.width.equalTo(60)
+                make.height.equalTo(40)
+                make.centerY.equalToSuperview()
+            }
+            
+            if let url = URL.init(string: thumbnail) {
+                imgView.sd_setImage(with: url)
+            }
         }
         
         lblName.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
-            make.left.equalToSuperview().offset(80)
+            make.left.equalToSuperview().offset(thumbnail == "" ? 20 : 100)
             make.right.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview()
         }
+        
+        lblName.text = name
     }
 }

@@ -29,6 +29,14 @@ class Step1ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         Payment.sharedInstance.step = .amount
+        
+        if Payment.sharedInstance.installments != nil {
+            DispatchQueue.main.async {
+                Utils.showAlert(message: "El monto a pagar es de $ \(Payment.sharedInstance.amount ?? "")\n Medio de pago: \(Payment.sharedInstance.paymentMethod?.name ?? "")\n Banco: \(Payment.sharedInstance.bank?.name ?? "")\n Cuotas: \(Payment.sharedInstance.installments?.message ?? "0")\n", context: self)
+                
+                self.mainView.amountField.text = ""
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

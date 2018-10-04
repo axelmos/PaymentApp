@@ -29,7 +29,7 @@ struct PayMethod {
             type = _type
         }
         
-        if let _thumbnail = dict["thumbnail"] as? String {
+        if let _thumbnail = dict["secure_thumbnail"] as? String {
             thumbnail = _thumbnail
         }
     }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import SVProgressHUD
 
 class Step2ViewController: UIViewController {
 
@@ -23,7 +23,6 @@ class Step2ViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Medio de pago"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Next", style: .plain, target: self, action: #selector(Step1ViewController.nextStep))
         
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
@@ -40,13 +39,18 @@ class Step2ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    @objc func nextStep () {
-        let vc = Step3ViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
 
     func getPaymentMethods () {
+        
+        if !Utils.isInternetAvailable() {
+            Utils.showAlert(message: "No se detectó una conexión a internet", context: self)
+            return
+        }
+        
+        DispatchQueue.main.async {
+            SVProgressHUD.show(withStatus: "Loading")
+        }
+        
         APIClient.sharedInstance.getPaymentMethods(completionHandler: { [weak self] (payMethods, error)  in
             if self == nil {
                 return
@@ -61,11 +65,14 @@ class Step2ViewController: UIViewController {
                 }
             }
             DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
                 self?.mainView.tableView.reloadData()
             }
             
         }) { (error:String?) in
-            
+            DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
+            }
         }
     }
 }
@@ -86,21 +93,16 @@ extension Step2ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
-        cell.configureCell()
-        cell.lblName.text = paymentMethods[indexPath.row].name
-        
-        /*if let url = URL.init(string: paymentMethods[indexPath.row].thumbnail ?? "") {
-            cell.imgView.sd_setImage(with: url)
-        }*/
-        
-        let imageURL = UIImage.gifImageWithURL(gifUrl: paymentMethods[indexPath.row].thumbnail ?? "")
-        cell.imgView.image = imageURL
+        cell.configureCell(name: paymentMethods[indexPath.row].name ?? "", thumbnail: paymentMethods[indexPath.row].thumbnail ?? "")
         
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Payment.sharedInstance.paymentMethod = paymentMethods[indexPath.row]
         
+        let vc = Step3ViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

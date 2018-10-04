@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class Step3ViewController: UIViewController {
 
@@ -22,7 +23,6 @@ class Step3ViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Banco"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Next", style: .plain, target: self, action: #selector(Step1ViewController.nextStep))
         
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
@@ -39,13 +39,17 @@ class Step3ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    @objc func nextStep () {
-        let vc = Step4ViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
 
     func getBanks () {
+        
+        if !Utils.isInternetAvailable() {
+            Utils.showAlert(message: "No se detectó una conexión a internet", context: self)
+            return
+        }
+        
+        DispatchQueue.main.async {
+            SVProgressHUD.show(withStatus: "Loading")
+        }
         APIClient.sharedInstance.getCardIssuers(completionHandler: { [weak self] (banks, error)  in
             if self == nil {
                 return
@@ -59,9 +63,15 @@ class Step3ViewController: UIViewController {
                     print("error parsing object: \(error)")
                 }
             }
+            DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
+                self?.mainView.tableView.reloadData()
+            }
             
         }) { (error:String?) in
-            
+            DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
+            }
         }
     }
 }
@@ -81,13 +91,17 @@ extension Step3ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
+        cell.configureCell(name: banks[indexPath.row].name ?? "", thumbnail: banks[indexPath.row].thumbnail ?? "")
         
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Payment.sharedInstance.bank = banks[indexPath.row]
         
+        let vc = Step4ViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

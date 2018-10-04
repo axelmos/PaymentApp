@@ -25,7 +25,6 @@
 		2486AC3E216554DB009BDBDA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3D216554DB009BDBDA /* Utils.swift */; };
 		2486AC40216560CA009BDBDA /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC3F216560CA009BDBDA /* Enums.swift */; };
 		2486AC4421656820009BDBDA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC4321656820009BDBDA /* CustomCell.swift */; };
-		2486AC4621656E54009BDBDA /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486AC4521656E54009BDBDA /* UIImage+GIF.swift */; };
 		2FC6AAB62162E092003CE870 /* PayMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6AAB52162E092003CE870 /* PayMethod.swift */; };
 		2FC6AAB82162FE55003CE870 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6AAB72162FE55003CE870 /* Bank.swift */; };
 		2FC6AABA2162FEED003CE870 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6AAB92162FEED003CE870 /* Payment.swift */; };
@@ -52,7 +51,6 @@
 		2486AC3D216554DB009BDBDA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		2486AC3F216560CA009BDBDA /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		2486AC4321656820009BDBDA /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		2486AC4521656E54009BDBDA /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
 		2FC6AAB52162E092003CE870 /* PayMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMethod.swift; sourceTree = "<group>"; };
 		2FC6AAB72162FE55003CE870 /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
 		2FC6AAB92162FEED003CE870 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
@@ -170,7 +168,6 @@
 			isa = PBXGroup;
 			children = (
 				2486AC3B216551F6009BDBDA /* UIViewController.swift */,
-				2486AC4521656E54009BDBDA /* UIImage+GIF.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -272,8 +269,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PaymentApp/Pods-PaymentApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
@@ -281,8 +276,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
@@ -325,7 +318,6 @@
 				2486AC2C21652FF1009BDBDA /* Step1View.swift in Sources */,
 				2486AC40216560CA009BDBDA /* Enums.swift in Sources */,
 				2486AC30216533D0009BDBDA /* Step3View.swift in Sources */,
-				2486AC4621656E54009BDBDA /* UIImage+GIF.swift in Sources */,
 				2486AC32216533D0009BDBDA /* Step2View.swift in Sources */,
 				2486AC3E216554DB009BDBDA /* Utils.swift in Sources */,
 				2486AC122162B221009BDBDA /* AppDelegate.swift in Sources */,
